@@ -1,4 +1,4 @@
-//© A+ Computer Science  -  www.apluscompsci.com
+//ï¿½ A+ Computer Science  -  www.apluscompsci.com
 //Name -
 //Date -
 //Class -
@@ -20,12 +20,16 @@ public class MadLib
 
 	public MadLib()
 	{
-
+		verbs.add("run");
+		nouns.add("Johnathon Leohr");
+		adjectives.add("purple");
+		story = "Johnathon Leohr runs down the purple road.";
 	}
 
 	public MadLib(String fileName)
 	{
 		//load stuff
+		
 
 		try
 		{
@@ -46,14 +50,22 @@ public class MadLib
 			System.out.println("Houston we have a problem!");
 		}
 
-	}
+}
 
 	public void loadNouns()
 	{
+		//We are adding onto the list array that is already made.
 		try
 		{
-
+			Scanner nouns = new Scanner(new File("nouns.dat"));
+			while(nouns.hasNext())
+		{
+			System.out.println(nouns.nextLine());
+			nounsArray.add(nouns.nextLine());
 		}
+		nouns.close();
+    	}
+		
 		catch(Exception e)
 		{
 			System.out.println("nouns.dat does not exist");
@@ -63,9 +75,16 @@ public class MadLib
 
 	public void loadVerbs()
 	{
+		String[] verbsArray = new String[];
 		try
 		{
-
+			Scanner verbs = new Scanner(new File("verbs.dat"));
+			while(verbs.hasNext())
+		{
+			System.out.println(verbs.nextLine());
+			verbArray[] = verbs.next();
+		}
+		verbs.close();
 		}
 		catch(Exception e)
 		{
@@ -77,7 +96,12 @@ public class MadLib
 	{
 		try
 		{
-
+			Scanner adjectives = new Scanner(new File("adjectives.dat"));
+			while(adjectives.hasNext())
+		{
+			System.out.println(adjectives.nextLine());
+		}
+		adjectives.close();
 		}
 		catch(Exception e)
 		{
@@ -87,7 +111,10 @@ public class MadLib
 
 	public String getRandomVerb()
 	{
-		return "";
+		int x = (int)(Math.random()*13) + 1;
+
+    	System.out.println(x);
+		return "" + x;
 	}
 
 	public String getRandomNoun()
