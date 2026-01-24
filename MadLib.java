@@ -23,47 +23,58 @@ public class MadLib
 		verbs.add("run");
 		nouns.add("Johnathon Leohr");
 		adjectives.add("purple");
-		story = "Johnathon Leohr runs down the purple road.";
+		story = "Why?";
 	}
 
 	public MadLib(String fileName)
 	{
 		//load stuff
-		
-
+		loadNouns();
+		loadVerbs();
+		loadAdjectives();
 		try
 		{
-			//Read the different parts of the story and concatenate the resulting
-			//story using the symbols to tell you the parts of speech
+			Scanner chopper = new Scanner(new File(fileName));
+			while(chopper.hasNext())
+			{
+				//Read the different parts of the story and concatenate the resulting
+				//story using the symbols to tell you the parts of speech
+				String string = (chopper.next());
+				if(!string.equals("#")&&!string.equals("@")&&!string.equals("&"))
+					story = story+chopper.next();	
 
-
-			//While there is more of the story, read in the word/symbol
+				//While there is more of the story, read in the word/symbol
 
 				//If what was read in is one of the symbols, find a random
 				//word to replace it.
+				if(string.equals("#"))
+					story = story + nouns.get(getRandomNoun());
+				else if(string.equals("@"))
+					story = story + verbs.get(getRandomVerb());
+				else 
+					story = story + adjectives.get(getRandomAdjective());
 			}
-
-
+			chopper.close();
+			
 		}
 		catch(Exception e)
 		{
 			System.out.println("Houston we have a problem!");
 		}
-
-}
+		
+	}
 
 	public void loadNouns()
 	{
 		//We are adding onto the list array that is already made.
 		try
 		{
-			Scanner nouns = new Scanner(new File("nouns.dat"));
-			while(nouns.hasNext())
+			Scanner reader = new Scanner(new File("nouns.dat"));
+			while(reader.hasNext())
 		{
-			System.out.println(nouns.nextLine());
-			nounsArray.add(nouns.nextLine());
+			nouns.add(reader.nextLine());
 		}
-		nouns.close();
+		reader.close();
     	}
 		
 		catch(Exception e)
@@ -75,16 +86,14 @@ public class MadLib
 
 	public void loadVerbs()
 	{
-		String[] verbsArray = new String[];
 		try
 		{
-			Scanner verbs = new Scanner(new File("verbs.dat"));
-			while(verbs.hasNext())
+			Scanner reader = new Scanner(new File("verbs.dat"));
+			while(reader.hasNext())
 		{
-			System.out.println(verbs.nextLine());
-			verbArray[] = verbs.next();
+			verbs.add(reader.nextLine());
 		}
-		verbs.close();
+		reader.close();
 		}
 		catch(Exception e)
 		{
@@ -96,12 +105,12 @@ public class MadLib
 	{
 		try
 		{
-			Scanner adjectives = new Scanner(new File("adjectives.dat"));
-			while(adjectives.hasNext())
+			Scanner reader = new Scanner(new File("adjectives.dat"));
+			while(reader.hasNext())
 		{
-			System.out.println(adjectives.nextLine());
+			adjectives.add(reader.nextLine());
 		}
-		adjectives.close();
+		reader.close();
 		}
 		catch(Exception e)
 		{
@@ -111,24 +120,23 @@ public class MadLib
 
 	public String getRandomVerb()
 	{
-		int x = (int)(Math.random()*13) + 1;
-
-    	System.out.println(x);
-		return "" + x;
+		return "" + (int)(Math.random()*verbs.size()) + 1;
 	}
 
 	public String getRandomNoun()
 	{
-		return "";
+		Random random = new Random();
+		
+		return "" + random.nextInt(nouns.size())+1;
 	}
 
 	public String getRandomAdjective()
 	{
-		return "";
+		return "" + (int)(Math.random()*adjectives.size())+1;
 	}
 
 	public String toString()
 	{
-		return "";
+		return "" + story;
 	}
 }
