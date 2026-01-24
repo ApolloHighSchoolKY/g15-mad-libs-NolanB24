@@ -48,11 +48,11 @@ public class MadLib
 				//If what was read in is one of the symbols, find a random
 				//word to replace it.
 				if(string.equals("#"))
-					story = story + nouns.get(getRandomNoun());
+					story = story + getRandomNoun();
 				else if(string.equals("@"))
-					story = story + verbs.get(getRandomVerb());
+					story = story + getRandomVerb();
 				else 
-					story = story + adjectives.get(getRandomAdjective());
+					story = story + getRandomAdjective();
 			}
 			chopper.close();
 			
@@ -120,19 +120,23 @@ public class MadLib
 
 	public String getRandomVerb()
 	{
-		return "" + (int)(Math.random()*verbs.size()) + 1;
+		int x = (int)(Math.random()*verbs.size()) + 1;
+		return "" + verbs.get(x);
 	}
 
 	public String getRandomNoun()
 	{
 		Random random = new Random();
 		
-		return "" + random.nextInt(nouns.size())+1;
+		int x = random.nextInt(nouns.size())+1;
+		
+		return "" + nouns.get(x);
 	}
 
 	public String getRandomAdjective()
 	{
-		return "" + (int)(Math.random()*adjectives.size())+1;
+	int x = (int)(Math.random()*adjectives.size())+1;
+		return "" + adjectives.get(x);
 	}
 
 	public String toString()
